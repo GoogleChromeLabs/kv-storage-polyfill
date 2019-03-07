@@ -1,0 +1,61 @@
+{
+  "name": "kv-storage-polyfill",
+  "version": "1.0.0",
+  "description": "Polyfill for the kv-storage Built-in Module",
+  "source": "src/index.js",
+  "main": "dist/kv-storage-polyfill.js",
+  "module": "dist/kv-storage-polyfill.mjs",
+  "scripts": {
+    "build": "microbundle",
+    "test": "karmatic"
+  },
+  "keywords": [
+    "kv-storage",
+    "polyfill"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "eslintConfig": {
+    "extends": "standard",
+    "globals": {
+      "IDBKeyRange": true,
+      "self": true,
+      "describe": true,
+      "expect": true,
+      "it": true,
+      "afterEach": true
+    },
+    "rules": {
+      "indent": [
+        2,
+        2
+      ],
+      "semi": [
+        2,
+        "always"
+      ]
+    }
+  },
+  "author": "The Chromium Authors",
+  "contributors": [
+    {
+      "name": "Jason Miller",
+      "email": "developit@google.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "repository": "GoogleChromeLabs/kv-storage-polyfill",
+  "devDependencies": {
+    "eslint": "^5.15.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "karmatic": "^1.2.0",
+    "microbundle": "^0.10.1",
+    "webpack": "^4.29.6"
+  }
+}
