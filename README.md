@@ -11,7 +11,7 @@ First, ensure you have an [Import Map] defined to enable the browser version whe
 {
   "imports": {
     "/node_modules/kv-storage/index.mjs": [
-      "@std/kv-storage",
+      "std:kv-storage",
       "/node_modules/kv-storage/index.mjs"
     ]
   }
@@ -19,7 +19,7 @@ First, ensure you have an [Import Map] defined to enable the browser version whe
 </script>
 ```
 
-Then import the polyfill. If the browser supports `@std/kv-storage` natively, it will use that instead:
+Then import the polyfill. If the browser supports `std:kv-storage` natively, it will use that instead:
 
 ```js
 import { storage } from '/node_modules/kv-storage/index.mjs';
