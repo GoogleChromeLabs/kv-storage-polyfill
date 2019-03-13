@@ -99,12 +99,12 @@ export class StorageArea {
         // If the database failed to initialize, then that's fine, we'll still try to delete it.
       }
 
-      // _databasePromise.set(this, null);
-      this._databasePromise = null;
+      // this._databasePromise = null;
+      _databasePromise.set(this, null);
     }
 
-    // return promiseForRequest(self.indexedDB.deleteDatabase(_databaseName.get(this)));
-    return promiseForRequest(self.indexedDB.deleteDatabase(this._databaseName));
+    // return promiseForRequest(self.indexedDB.deleteDatabase(this._databaseName));
+    return promiseForRequest(self.indexedDB.deleteDatabase(_databaseName.get(this)));
   }
 
   keys () {
