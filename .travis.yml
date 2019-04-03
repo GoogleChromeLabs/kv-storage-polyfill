@@ -1,3 +1,8 @@
 language: node_js
 node_js: node
 cache: npm
+env:
+  - MOZ_HEADLESS=1
+addons:
+  chrome: stable
+  firefox: latest
