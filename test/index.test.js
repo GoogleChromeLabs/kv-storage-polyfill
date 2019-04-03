@@ -14,7 +14,7 @@
  * the License.
  */
 
-import { StorageArea, storage } from '../';
+import { StorageArea, storage } from '..';
 
 async function collectAsyncIterator (asyncIterator) {
   const array = [];
