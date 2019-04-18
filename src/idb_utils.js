@@ -30,19 +30,9 @@ export function promiseForRequest (request) {
 }
 
 export function keyValuePairPromise (store, range) {
-  const keyRequest = store.getKey(range);
-  const valueRequest = store.get(range);
-
-  return new Promise((resolve, reject) => {
-    keyRequest.onerror = () => {
-      reject(keyRequest.error);
-    };
-    valueRequest.onerror = () => {
-      reject(valueRequest.error);
-    };
-    valueRequest.onsuccess = () => {
-      resolve([keyRequest.result, valueRequest.result]);
-    };
+  return promiseForRequest(store.openCursor(range)).then(result => {
+    result = result || HASNT_STARTED_YET;
+    return [result.key, result.value];
   });
 }
 
@@ -70,7 +60,7 @@ export const HASNT_STARTED_YET = {};
 
 export function getNextKey (store, lastKey) {
   const range = getRangeForKey(lastKey);
-  return promiseForRequest(store.getKey(range));
+  return keyValuePairPromise(store, range).then(ret => ret[0]);
 }
 
 export function getNextKeyValuePair (store, lastKey) {
