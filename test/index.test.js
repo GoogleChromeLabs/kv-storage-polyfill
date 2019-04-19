@@ -15,6 +15,7 @@
  */
 
 import { StorageArea, storage } from '..';
+// import { StorageArea, storage } from '../src';
 
 async function collectAsyncIterator (asyncIterator) {
   const array = [];
@@ -23,8 +24,6 @@ async function collectAsyncIterator (asyncIterator) {
   }
   return array;
 }
-
-let counter = 0;
 
 console.log({ StorageArea, storage });
 
@@ -43,7 +42,7 @@ describe('StorageArea', () => {
 
   describe('StorageArea#set', () => {
     it('should allow setting a value', async () => {
-      area = new StorageArea(++counter);
+      area = new StorageArea('test_area');
 
       const result = await area.set('foo', 'bar');
       expect(result).not.toBeDefined();
@@ -55,7 +54,7 @@ describe('StorageArea', () => {
 
   describe('StorageArea#entries', () => {
     it('should be a thing', async () => {
-      area = new StorageArea(++counter);
+      area = new StorageArea('test_area');
 
       await area.set('mycat', 'Tom');
       await area.set('mydog', 'Jerry');
@@ -71,7 +70,7 @@ describe('StorageArea', () => {
 
   describe('StorageArea#delete', () => {
     it('should be a thing', async () => {
-      area = new StorageArea(++counter);
+      area = new StorageArea('test_area');
 
       await area.set('mycat', 'Tom');
       expect(await area.get('mycat')).toBe('Tom');
