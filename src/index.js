@@ -90,17 +90,28 @@ export class StorageArea {
   async clear () {
     // const databasePromise = this._databasePromise
     const databasePromise = _databasePromise.get(this);
+    let db;
     if (databasePromise !== null) {
       // Don't try to delete, and clear the promise, while we're opening the database; wait for that
       // first.
       try {
-        await databasePromise;
+        db = await databasePromise;
       } catch (e) {
         // If the database failed to initialize, then that's fine, we'll still try to delete it.
       }
 
       // this._databasePromise = null;
       _databasePromise.set(this, null);
+    }
+
+    // IE & Edge require closing before deleting, and a delay to sync.
+    if (db) {
+      try {
+        db.close();
+      } catch (e) {}
+      // return new Promise(setTimeout).then(() => this.clear()).then(() => new Promise(setTimeout));
+      // await Promise.resolve();
+      await new Promise(setTimeout);
     }
 
     // return promiseForRequest(self.indexedDB.deleteDatabase(this._databaseName));
