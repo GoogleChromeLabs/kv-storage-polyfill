@@ -7,7 +7,7 @@
   "module": "dist/kv-storage-polyfill.mjs",
   "scripts": {
     "build": "microbundle",
-    "test": "microbundle && karmatic"
+    "test": "microbundle && karmatic --downlevel --browsers chrome,firefox,sauce-ie-11,sauce-edge-17-win10"
   },
   "keywords": [
     "kv-storage",
