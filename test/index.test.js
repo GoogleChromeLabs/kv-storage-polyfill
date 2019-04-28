@@ -14,6 +14,7 @@
  * the License.
  */
 
+import './_helpers';
 import { StorageArea, storage } from '..';
 // import { StorageArea, storage } from '../src';
 
@@ -53,7 +54,7 @@ describe('StorageArea', () => {
   });
 
   describe('StorageArea#entries', () => {
-    it('should be a thing', async () => {
+    it('should return all key-value entry pairs', async () => {
       area = new StorageArea('test_area');
 
       await area.set('mycat', 'Tom');
