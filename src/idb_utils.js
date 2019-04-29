@@ -18,10 +18,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-export function promiseForRequest (request) {
+/**
+ * Allows a "mutator" function, which is simply a callback through which the success result will be passed.
+ * This is important for iDB transactions in browsers withing native Promise support, where the transaction is closed before executing a promise chain.
+ * @private
+ */
+export function promiseForRequest (request, mutator) {
   return new Promise((resolve, reject) => {
     request.onsuccess = () => {
-      resolve(request.result);
+      let result = request.result;
+      if (mutator) result = mutator(result);
+      resolve(result);
     };
     request.onerror = () => {
       reject(request.error);
@@ -30,20 +37,10 @@ export function promiseForRequest (request) {
 }
 
 export function keyValuePairPromise (store, range) {
-  const keyRequest = store.getKey(range);
-  const valueRequest = store.get(range);
-
-  return new Promise((resolve, reject) => {
-    keyRequest.onerror = () => {
-      reject(keyRequest.error);
-    };
-    valueRequest.onerror = () => {
-      reject(valueRequest.error);
-    };
-    valueRequest.onsuccess = () => {
-      resolve([keyRequest.result, valueRequest.result]);
-    };
-  });
+  return promiseForRequest(
+    store.openCursor(range),
+    result => result ? [result.key, result.value] : []
+  );
 }
 
 export function promiseForTransaction (transaction) {
@@ -70,7 +67,7 @@ export const HASNT_STARTED_YET = {};
 
 export function getNextKey (store, lastKey) {
   const range = getRangeForKey(lastKey);
-  return promiseForRequest(store.getKey(range));
+  return keyValuePairPromise(store, range).then(ret => ret[0]);
 }
 
 export function getNextKeyValuePair (store, lastKey) {

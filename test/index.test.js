@@ -14,7 +14,9 @@
  * the License.
  */
 
-import { StorageArea, storage } from '../src';
+import './_helpers';
+import { StorageArea, storage } from '..';
+// import { StorageArea, storage } from '../src';
 
 async function collectAsyncIterator (asyncIterator) {
   const array = [];
@@ -52,7 +54,7 @@ describe('StorageArea', () => {
   });
 
   describe('StorageArea#entries', () => {
-    it('should be a thing', async () => {
+    it('should return all key-value entry pairs', async () => {
       area = new StorageArea('test_area');
 
       await area.set('mycat', 'Tom');
