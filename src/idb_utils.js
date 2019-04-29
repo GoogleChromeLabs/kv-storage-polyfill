@@ -18,10 +18,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-export function promiseForRequest (request) {
+/**
+ * Allows a "mutator" function, which is simply a callback through which the success result will be passed.
+ * This is important for iDB transactions in browsers withing native Promise support, where the transaction is closed before executing a promise chain.
+ * @private
+ */
+export function promiseForRequest (request, mutator) {
   return new Promise((resolve, reject) => {
     request.onsuccess = () => {
-      resolve(request.result);
+      let result = request.result;
+      if (mutator) result = mutator(result);
+      resolve(result);
     };
     request.onerror = () => {
       reject(request.error);
@@ -30,10 +37,10 @@ export function promiseForRequest (request) {
 }
 
 export function keyValuePairPromise (store, range) {
-  return promiseForRequest(store.openCursor(range)).then(result => {
-    result = result || HASNT_STARTED_YET;
-    return [result.key, result.value];
-  });
+  return promiseForRequest(
+    store.openCursor(range),
+    result => result ? [result.key, result.value] : []
+  );
 }
 
 export function promiseForTransaction (transaction) {
