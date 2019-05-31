@@ -10,9 +10,9 @@ First, ensure you have an [Import Map] defined to enable the browser version whe
 <script type="importmap">
 {
   "imports": {
-    "/node_modules/kv-storage/dist/kv-storage-polyfill.mjs": [
+    "/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs": [
       "std:kv-storage",
-      "/node_modules/kv-storage/dist/kv-storage-polyfill.mjs"
+      "/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs"
     ]
   }
 }
@@ -22,7 +22,7 @@ First, ensure you have an [Import Map] defined to enable the browser version whe
 Then import the polyfill. If the browser supports `std:kv-storage` natively, it will use that instead:
 
 ```js
-import { storage } from '/node_modules/kv-storage/dist/kv-storage-polyfill.mjs';
+import { storage } from '/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs';
 
 (async () => {
   await storage.set("mycat", "Tom");
