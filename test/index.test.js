@@ -15,7 +15,7 @@
  */
 
 import './_helpers';
-import { StorageArea, storage } from '..';
+import storage, { StorageArea } from '..';
 // import { StorageArea, storage } from '../src';
 
 async function collectAsyncIterator (asyncIterator) {

@@ -138,7 +138,7 @@ if (typeof Symbol === 'function' && Symbol.asyncIterator) {
   StorageArea.prototype[Symbol.asyncIterator] = StorageArea.prototype.entries;
 }
 
-export const storage = new StorageArea(DEFAULT_STORAGE_AREA_NAME);
+export default new StorageArea(DEFAULT_STORAGE_AREA_NAME);
 
 async function performDatabaseOperation (area, mode, steps) {
   // if (this._databasePromise === null) {
