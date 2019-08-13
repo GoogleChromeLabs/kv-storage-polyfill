@@ -6,7 +6,7 @@
   "main": "dist/kv-storage-polyfill.js",
   "module": "dist/kv-storage-polyfill.mjs",
   "scripts": {
-    "build": "microbundle",
+    "build": "microbundle -f es && microbundle -f cjs,umd src/cjs.js",
     "test": "microbundle && MOZ_HEADLESS=1 karmatic --downlevel --browsers chrome:headless,firefox,sauce-ie-11-win10,sauce-edge-17-win10"
   },
   "keywords": [
