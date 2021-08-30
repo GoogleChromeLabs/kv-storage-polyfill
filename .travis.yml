@@ -1,8 +1,0 @@
-language: node_js
-node_js: node
-cache: npm
-addons:
-  chrome: stable
-  firefox: latest
-script:
-  - travis_retry npm t
